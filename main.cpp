@@ -18,21 +18,20 @@ void serialHandler() {
   if (pc.readable()) {
     char val = pc.getc();
 
-    switch(val)
-    {
-        case 'a':
-        ledExternal=1;
-        break;
-        //
-        case 'z':
-        ledExternal=0;
-        break;
-        //
-        default:
-        break;
+    switch (val) {
+    case 'l':
+      ledExternal = 1;
+      break;
+    //
+    case 'k':
+      ledExternal = 0;
+      break;
+    //
+    default:
+      break;
     }
 
-    //pc.putc(val);
+    // pc.putc(val);
   }
 }
 
@@ -40,7 +39,9 @@ void serialHandler() {
 void sendMessage() {
   static int cmp = 100;
   //
-  pc.printf("D%dT\n\r", cmp);
+  pc.putc('D');
+  pc.printf("%d", cmp);
+  pc.putc('T');
   //
   cmp += 1;
   if (cmp > 1000) {
@@ -72,7 +73,7 @@ void loop() {
   //
   sendMessage();
   //
-  thread_sleep_for(2000);
+  thread_sleep_for(1000);
 }
 
 //****************************
